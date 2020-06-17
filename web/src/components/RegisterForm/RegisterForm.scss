@@ -1,6 +1,6 @@
 @import "../../assets/scss/variables";
 
-.register__control {
+.register-form__control {
   margin-bottom: 2.2rem;
 
   &:last-child {
@@ -8,14 +8,14 @@
   }
 }
 
-.register__label {
+.register-form__label {
   display: block;
   font-weight: 700;
   margin-bottom: 5px;
 }
 
-.register_input,
-.register_select {
+.register-form__input,
+.register-form__select {
   color: $white;
   display: block;
   padding: 0;
@@ -32,10 +32,10 @@
   }
 }
 
-.register_select option {
+.register-form__select option {
   color: $black;
 }
 
-.register__buttons {
+.register-form__buttons {
   margin-top: 3.5rem;
 }

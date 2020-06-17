@@ -1,6 +1,6 @@
 import React from "react";
-import "./Register.scss";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import "./Register.scss";
 
 const Register = function () {
   return (

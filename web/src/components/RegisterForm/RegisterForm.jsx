@@ -39,17 +39,17 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="register-form" onSubmit={this.handleSubmit}>
         {/* Name */}
-        <div className="register__control">
-          <label htmlFor="register_name" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="name" className="register-form__label">
             Nome
           </label>
           <input
-            id="register_name"
+            id="name"
             type="text"
             name="name"
-            className="register_input"
+            className="register-form__input"
             placeholder="Nome completo"
             value={this.state.name}
             onChange={this.handleChange}
@@ -57,15 +57,15 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* Email */}
-        <div className="register__control">
-          <label htmlFor="register_email" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="email" className="register-form__label">
             E-mail
           </label>
           <input
-            id="register_email"
+            id="email"
             type="email"
             name="email"
-            className="register_input"
+            className="register-form__input"
             placeholder="Seu endereço de e-mail"
             value={this.state.email}
             onChange={this.handleChange}
@@ -73,15 +73,15 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* Password */}
-        <div className="register__control">
-          <label htmlFor="register_password" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="password" className="register-form__label">
             Senha
           </label>
           <input
-            id="register_password"
+            id="password"
             type="password"
             name="password"
-            className="register_input"
+            className="register-form__input"
             placeholder="Senha de acesso"
             value={this.state.password}
             onChange={this.handleChange}
@@ -89,18 +89,18 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* Password Confirmation */}
-        <div className="register__control">
+        <div className="register-form__control">
           <label
-            htmlFor="register_password_confirmation"
-            className="register__label"
+            htmlFor="password_confirmation"
+            className="register-form__label"
           >
             Repita a Senha
           </label>
           <input
-            id="register_password_confirmation"
+            id="password_confirmation"
             type="password"
             name="password_confirmation"
-            className="register_input"
+            className="register-form__input"
             placeholder="Insira novamente sua senha"
             value={this.state.password_confirmation}
             onChange={this.handleChange}
@@ -108,14 +108,14 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* Gender */}
-        <div className="register__control">
-          <label htmlFor="register_gender" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="gender" className="register-form__label">
             Gênero
           </label>
           <select
-            id="register_gender"
+            id="gender"
             name="gender"
-            className="register_select"
+            className="register-form__select"
             value={this.state.gender}
             onChange={this.handleChange}
           >
@@ -126,15 +126,15 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* Phone */}
-        <div className="register__control">
-          <label htmlFor="register_phone" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="phone" className="register-form__label">
             Telefone
           </label>
           <input
-            id="register_phone"
+            id="phone"
             type="text"
             name="phone"
-            className="register_input"
+            className="register-form__input"
             placeholder="Insira seu telefone com DDD"
             value={this.state.phone}
             onChange={this.handleChange}
@@ -142,14 +142,14 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* Country */}
-        <div className="register__control">
-          <label htmlFor="register_country" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="country" className="register-form__label">
             País
           </label>
           <select
-            id="register_country"
+            id="country"
             name="country"
-            className="register_select"
+            className="register-form__select"
             value={this.state.country}
             onChange={this.handleChange}
           >
@@ -160,15 +160,15 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* CPF */}
-        <div className="register__control">
-          <label htmlFor="register_cpf" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="cpf" className="register-form__label">
             CPF
           </label>
           <input
-            id="register_cpf"
+            id="cpf"
             type="text"
             name="cpf"
-            className="register_input"
+            className="register-form__input"
             placeholder="Insira seu número de CPF"
             value={this.state.cpf}
             onChange={this.handleChange}
@@ -176,8 +176,8 @@ class RegisterForm extends React.Component {
         </div>
 
         {/* Newsletter */}
-        <div className="register__control">
-          <label htmlFor="register_newsletter_1" className="register__label">
+        <div className="register-form__control">
+          <label htmlFor="newsletter_1" className="register-form__label">
             Deseja receber nossa newsletter?
           </label>
           <button
@@ -207,7 +207,7 @@ class RegisterForm extends React.Component {
           </button>
         </div>
 
-        <div className="register__control register__buttons">
+        <div className="register-form__control register-form__buttons">
           <button className="button is-primary is-large is-block">
             Cadastrar
           </button>
