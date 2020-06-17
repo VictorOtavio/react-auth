@@ -1,17 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import "./assets/scss/styles.scss";
-
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
+import App from "./components/App/App.jsx";
 
 ReactDOM.render(
   <React.StrictMode>
-    <div className="container">
-      <Header />
-      <Main />
-    </div>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

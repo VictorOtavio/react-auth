@@ -1,0 +1,41 @@
+@import "../../assets/scss/variables";
+
+.register__control {
+  margin-bottom: 2.2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.register__label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.register_input,
+.register_select {
+  color: $white;
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: transparent;
+  line-height: 1.8rem;
+  border: none;
+  border-bottom: 1px solid $grey;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: $blue;
+  }
+}
+
+.register_select option {
+  color: $black;
+}
+
+.register__buttons {
+  margin-top: 3.5rem;
+}
