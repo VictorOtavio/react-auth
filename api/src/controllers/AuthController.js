@@ -15,7 +15,7 @@ const login = async (req, res) => {
     res.json({ message: "User authenticated successfully!" });
   } catch (error) {
     res.status(500).json({
-      message: error.message || "Some error occurred while creating the user."
+      message: error.message || "Some error occurred while authentication."
     });
   }
 };
