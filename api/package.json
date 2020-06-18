@@ -2,8 +2,11 @@
   "name": "@react-auth/api",
   "version": "0.1.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "nodemon ./bin/server.js"
+  },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
   }
 }
