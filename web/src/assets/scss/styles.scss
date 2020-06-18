@@ -72,3 +72,22 @@ body {
     width: 100%;
   }
 }
+
+.has-text-black {
+  color: $black !important;
+}
+.has-text-grey {
+  color: $grey !important;
+}
+.has-text-white {
+  color: $white !important;
+}
+.has-text-primary {
+  color: $blue !important;
+}
+.has-text-danger {
+  color: $red !important;
+}
+.has-text-purple {
+  color: $purple !important;
+}

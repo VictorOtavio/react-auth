@@ -1,4 +1,6 @@
 import React from "react";
+import classnames from "classnames";
+import API from "../../services/API";
 import "./LoginForm.scss";
 
 class LoginForm extends React.Component {
@@ -6,15 +8,9 @@ class LoginForm extends React.Component {
     super(props);
 
     this.state = {
-      name: "",
+      errors: {},
       email: "",
       password: "",
-      password_confirmation: "",
-      gender: "",
-      phone: "",
-      country: "",
-      cpf: "",
-      newsletter: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,13 +18,38 @@ class LoginForm extends React.Component {
     this.toggleNewsletterOption = this.toggleNewsletterOption.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(event) {
-    alert("Um nome foi enviado: " + this.state.value);
-    event.preventDefault();
+  async handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const res = await API.post("auth", {
+        email: this.state.email,
+        password: this.state.password,
+      });
+
+      alert(res.data.message);
+    } catch (error) {
+      if (error.response.status === 422) {
+        const { errors } = error.response.data;
+        const errorsBag = {};
+
+        if (errors !== undefined) {
+          errors.forEach((err) => {
+            Object.keys(err).forEach((e) => {
+              errorsBag[e] = err[e];
+            });
+          });
+        }
+
+        this.setState({ errors: errorsBag });
+      } else if (error.response.status === 401) {
+        alert(error.response.data.message);
+      }
+    }
   }
 
   toggleNewsletterOption(e) {
@@ -48,11 +69,19 @@ class LoginForm extends React.Component {
             id="email"
             type="email"
             name="email"
-            className="login-form__input"
+            className={classnames({
+              "login-form__input": true,
+              "has-text-danger": this.state.errors.email,
+            })}
             placeholder="Seu endereço de e-mail"
             value={this.state.email}
             onChange={this.handleChange}
           />
+          {this.state.errors.email && (
+            <p className="login-form__help has-text-danger">
+              {this.state.errors.email}
+            </p>
+          )}
         </div>
 
         {/* Password */}
@@ -64,15 +93,25 @@ class LoginForm extends React.Component {
             id="password"
             type="password"
             name="password"
-            className="login-form__input"
+            className={classnames({
+              "login-form__input": true,
+              "has-text-danger": this.state.errors.password,
+            })}
             placeholder="Senha de acesso"
             value={this.state.password}
             onChange={this.handleChange}
           />
+          {this.state.errors.password && (
+            <p className="login-form__help has-text-danger">
+              {this.state.errors.password}
+            </p>
+          )}
         </div>
 
         <div className="login-form__control login-form__buttons">
-          <button className="button is-primary is-large is-block">Login</button>
+          <button type="submit" className="button is-primary is-large is-block">
+            Login
+          </button>
         </div>
       </form>
     );
