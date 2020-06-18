@@ -1,10 +1,14 @@
 import db from "../models";
+import bcrypt from "bcrypt";
 const User = db.users;
 
 // Adiciona e salva um novo usuário
 const store = async (req, res) => {
   // Cria um usuário
   const user = new User({ ...req.body });
+
+  // Hash da senha
+  user.password = bcrypt.hashSync(req.body.password, 10);
 
   // Salva o usuário no banco de dados
   try {
