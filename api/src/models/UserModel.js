@@ -15,7 +15,12 @@ const UserModel = mongoose => {
 
   schema.method("toJSON", function() {
     const { __v, _id, ...object } = this.toObject();
+
     object.id = _id;
+
+    // Não adiciona a hash da senha ao JSON
+    delete object.password;
+
     return object;
   });
 
