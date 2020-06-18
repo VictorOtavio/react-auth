@@ -1,7 +1,6 @@
-const app = require("../src/app");
-const port = selectPort(process.env.PORT || "3030");
+import app from "../src/app";
 
-function selectPort(val) {
+const selectPort = function (val) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -13,7 +12,9 @@ function selectPort(val) {
   }
 
   return false;
-}
+};
+
+const port = selectPort(process.env.API_PORT || "8000");
 
 app.listen(port, function () {
   console.log(`API listening on port ${port}`);
