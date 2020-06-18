@@ -1,0 +1,41 @@
+@import "../../assets/scss/variables";
+
+.register-form__control {
+  margin-bottom: 2.2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.register-form__label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.register-form__input,
+.register-form__select {
+  color: $white;
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: transparent;
+  line-height: 1.8rem;
+  border: none;
+  border-bottom: 1px solid $grey;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: $blue;
+  }
+}
+
+.register-form__select option {
+  color: $black;
+}
+
+.register-form__buttons {
+  margin-top: 3.5rem;
+}

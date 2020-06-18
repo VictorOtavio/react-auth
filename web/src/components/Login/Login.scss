@@ -1,0 +1,43 @@
+@import "../../assets/scss/variables";
+
+.login__link {
+  color: $blue;
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14rem;
+  line-height: 1.2rem;
+  margin: 1rem 0 4rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    color: lighten($blue, 10%);
+  }
+}
+
+.login__desc {
+  opacity: 0.4;
+  margin: 0 0 0.85rem;
+}
+
+.login__social {
+  text-align: center;
+}
+
+.login__social-links img {
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+.login__register-button {
+  margin: 1rem 0 2rem;
+}
+
+.login__help {
+  letter-spacing: normal;
+  text-decoration: underline;
+  font-size: 0.85rem;
+}
