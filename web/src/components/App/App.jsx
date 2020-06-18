@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "../Header/Header";
+import Login from "../Login/Login";
 import Register from "../Register/Register";
 import "../../assets/scss/styles.scss";
 
@@ -14,8 +15,7 @@ const App = function () {
             <Register />
           </Route>
           <Route path="/">
-            <div>Login</div>
-            <Link to="/register">Não tenho login</Link>
+            <Login />
           </Route>
         </Switch>
       </Router>

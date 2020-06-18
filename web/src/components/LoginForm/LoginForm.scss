@@ -1,0 +1,34 @@
+@import "../../assets/scss/variables";
+
+.login-form__control:not(.login-form__buttons) {
+  background-color: $grey;
+  border-radius: $radius-large;
+  padding: 10px;
+  color: $blue;
+  margin-bottom: 1rem;
+}
+
+.login-form__label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.login-form__input {
+  color: $grey-darkest;
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: transparent;
+  line-height: 1.8rem;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.login-form__buttons {
+  margin-top: 1.4rem;
+}

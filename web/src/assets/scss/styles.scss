@@ -24,25 +24,36 @@ body {
 }
 
 .button {
-  outline: none;
-  letter-spacing: 0.1rem;
   background-color: $grey;
   border-radius: $radius;
   border: 1px solid $grey;
+  cursor: pointer;
   font-weight: 700;
+  letter-spacing: 0.1rem;
+  outline: none;
   padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
 
-  &.is-primary,
-  &.is-blue {
+  &.is-primary {
     background-color: $blue;
     border-color: $purple;
     color: $white;
 
+    &:hover,
+    &:focus {
+      background-color: darken($blue, 5%);
+    }
+
     &.is-outline {
-      background-color: transparent;
       border-color: $blue;
     }
+  }
+
+  &.is-outline {
+    background-color: transparent;
+    border-color: $grey;
   }
 
   &.is-small {
