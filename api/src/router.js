@@ -1,11 +1,14 @@
-const express = require("express");
+import express from "express";
+import UserRequest from "./requests/UserRequest";
+import UserController from "./controllers/UserController";
+
 const router = express.Router();
 
-router.get("/", function (req, res) {
-  res.status(200).send({
-    title: "Node Express API",
-    version: "0.0.1",
-  });
-});
+router.post(
+  "/user",
+  UserRequest.rules(),
+  UserRequest.validate,
+  UserController.store
+);
 
 module.exports = router;
