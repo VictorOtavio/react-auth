@@ -1,0 +1,14 @@
+FROM node:12 AS build-stage
+ARG DB_USERNAME
+ARG DB_PASSWORD
+ARG DB_DATABASE
+RUN echo "db.createUser({user:'${DB_USERNAME}',pwd:'${DB_PASSWORD}',roles:[{role:'readWrite',db:'${DB_DATABASE}'}]});" >> /tmp/start.js
+
+FROM mongo:4 AS production-stage
+ARG DB_USERNAME
+ARG DB_PASSWORD
+ARG DB_DATABASE
+ENV MONGO_INITDB_ROOT_USERNAME=root \
+  MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD} \
+  MONGO_INITDB_DATABASE=${DB_DATABASE}
+COPY --from=build-stage /tmp/start.js /docker-entrypoint-initdb.d/
