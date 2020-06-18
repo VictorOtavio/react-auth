@@ -14,7 +14,7 @@ const selectPort = function (val) {
   return false;
 };
 
-const port = selectPort(process.env.PORT || "8000");
+const port = selectPort(process.env.API_PORT || "8000");
 
 app.listen(port, function () {
   console.log(`API listening on port ${port}`);

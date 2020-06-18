@@ -1,10 +1,21 @@
 import { check, validationResult } from "express-validator";
+import db from "../models";
+
+const User = db.users;
 
 export default {
   rules() {
     return [
       check("name").not().isEmpty().withMessage("Name is required"),
-      check("email", "Email is required").isEmail(),
+      check("email", "Email is required")
+        .isEmail()
+        .custom(async (email) => {
+          const user = await User.findOne({ email });
+          if (user) {
+            throw new Error("E-mail already in use");
+          }
+          return true;
+        }),
       check("password")
         .not()
         .isEmpty()
