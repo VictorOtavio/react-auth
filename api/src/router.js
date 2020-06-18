@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import UserRequest from "./requests/UserRequest";
+import UserController from "./controllers/UserController";
+
 const router = express.Router();
-const UserController = require("./controllers/UserController");
-const UserRequest = require("./requests/UserRequest");
 
 router.post(
   "/user",

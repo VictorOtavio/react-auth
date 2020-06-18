@@ -1,6 +1,6 @@
-const { check, validationResult } = require("express-validator");
+import { check, validationResult } from "express-validator";
 
-module.exports = {
+export default {
   rules() {
     return [
       check("name").not().isEmpty().withMessage("Name is required"),
@@ -25,6 +25,7 @@ module.exports = {
       check("newsletter").isBoolean(),
     ];
   },
+
   validate(req, res, next) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {

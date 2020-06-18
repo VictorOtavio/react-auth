@@ -1,8 +1,16 @@
-const express = require("express");
-const app = express();
-const router = require("./router");
+import cors from "cors";
+import logger from "morgan";
+import express from "express";
+import bodyParser from "body-parser";
+import router from "./router";
 
-app.use(express.json());
+const app = express();
+
+app.use(logger("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({ exposedHeaders: "*" }));
+
 app.use("/", router);
 
-module.exports = app;
+export default app;
