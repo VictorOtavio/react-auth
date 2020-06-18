@@ -1,0 +1,9 @@
+{
+  "name": "@react-auth/api",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
