@@ -30,6 +30,10 @@
     outline: none;
     border-bottom-color: $blue;
   }
+
+  &.has-text-danger {
+    border: 1px solid $red;
+  }
 }
 
 .register-form__select option {
