@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
 import classnames from "classnames";
 import API from "../../services/API";
 import "./RegisterForm.scss";
 
 function RegisterForm() {
+  const alert = useAlert();
   const history = useHistory();
 
   const [errors, setErrors] = useState({});
@@ -58,7 +60,7 @@ function RegisterForm() {
       });
 
       if (res.status === 201) {
-        alert("User successfully registered!");
+        alert.show("User successfully registered!", { type: "success" });
         history.push("/");
       }
     } catch (error) {

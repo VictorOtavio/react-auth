@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useAlert } from "react-alert";
 import classnames from "classnames";
 import API from "../../services/API";
 import "./LoginForm.scss";
 
 function LoginForm() {
+  const alert = useAlert();
+
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +24,7 @@ function LoginForm() {
 
     try {
       const res = await API.post("auth", { email, password });
-      alert(res.data.message);
+      alert.show(res.data.message, { type: "success" });
     } catch (error) {
       if (error.response === undefined) {
         throw error;
@@ -41,7 +44,7 @@ function LoginForm() {
 
         setErrors(errorsBag);
       } else if (error.response.status === 401) {
-        alert(error.response.data.message);
+        alert.show(error.response.data.message, { type: "error" });
       }
     }
   };
