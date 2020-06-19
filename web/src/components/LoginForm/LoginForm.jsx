@@ -1,82 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAlert } from "react-alert";
+import classnames from "classnames";
+import API from "../../services/API";
 import "./LoginForm.scss";
 
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
+function LoginForm() {
+  const alert = useAlert();
 
-    this.state = {
-      name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
-      gender: "",
-      phone: "",
-      country: "",
-      cpf: "",
-      newsletter: true,
-    };
+  const [errors, setErrors] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const funcs = { setErrors, setEmail, setPassword };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleNewsletterOption = this.toggleNewsletterOption.bind(this);
-  }
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const funcName = name.charAt(0).toUpperCase() + name.slice(1);
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
+    funcs[`set${funcName}`](e.target.value);
+  };
 
-  handleSubmit(event) {
-    alert("Um nome foi enviado: " + this.state.value);
-    event.preventDefault();
-  }
-
-  toggleNewsletterOption(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    this.setState({ newsletter: !this.state.newsletter });
-  }
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        {/* Email */}
-        <div className="login-form__control">
-          <label htmlFor="email" className="login-form__label">
-            Login
-          </label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            className="login-form__input"
-            placeholder="Seu endereço de e-mail"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
-        </div>
+    try {
+      const res = await API.post("auth", { email, password });
+      alert.show(res.data.message, { type: "success" });
+    } catch (error) {
+      if (error.response === undefined) {
+        throw error;
+      }
 
-        {/* Password */}
-        <div className="login-form__control">
-          <label htmlFor="password" className="login-form__label">
-            Senha
-          </label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            className="login-form__input"
-            placeholder="Senha de acesso"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
-        </div>
+      if (error.response.status === 422) {
+        const { errors } = error.response.data;
+        const errorsBag = {};
 
-        <div className="login-form__control login-form__buttons">
-          <button className="button is-primary is-large is-block">Login</button>
-        </div>
-      </form>
-    );
-  }
+        if (errors !== undefined) {
+          errors.forEach((err) => {
+            Object.keys(err).forEach((e) => {
+              errorsBag[e] = err[e];
+            });
+          });
+        }
+
+        setErrors(errorsBag);
+      } else if (error.response.status === 401) {
+        alert.show(error.response.data.message, { type: "error" });
+      }
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Email */}
+      <div className="login-form__control">
+        <label htmlFor="email" className="login-form__label">
+          Login
+        </label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          className={classnames({
+            "login-form__input": true,
+            "has-text-danger": errors.email,
+          })}
+          placeholder="Seu endereço de e-mail"
+          value={email}
+          onChange={handleChange}
+        />
+        {errors.email && (
+          <p className="login-form__help has-text-danger">{errors.email}</p>
+        )}
+      </div>
+
+      {/* Password */}
+      <div className="login-form__control">
+        <label htmlFor="password" className="login-form__label">
+          Senha
+        </label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          className={classnames({
+            "login-form__input": true,
+            "has-text-danger": errors.password,
+          })}
+          placeholder="Senha de acesso"
+          value={password}
+          onChange={handleChange}
+        />
+        {errors.password && (
+          <p className="login-form__help has-text-danger">{errors.password}</p>
+        )}
+      </div>
+
+      <div className="login-form__control login-form__buttons">
+        <button type="submit" className="button is-primary is-large is-block">
+          Login
+        </button>
+      </div>
+    </form>
+  );
 }
 
 export default LoginForm;
