@@ -1,13 +1,17 @@
-import React, { useState, setState } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import classnames from "classnames";
 import API from "../../services/API";
 import "./RegisterForm.scss";
 
 function RegisterForm() {
+  const history = useHistory();
+
+  const [errors, setErrors] = useState({});
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [password_confirmation, setPasswordConfirmation] = useState("");
+  const [password_confirmation, setPassword_confirmation] = useState("");
   const [gender, setGender] = useState("");
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
@@ -17,7 +21,7 @@ function RegisterForm() {
     setName,
     setEmail,
     setPassword,
-    setPasswordConfirmation,
+    setPassword_confirmation,
     setGender,
     setPhone,
     setCountry,
@@ -41,8 +45,22 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      const res = await API.post("auth", { email, password });
-      alert(res.data.message);
+      const res = await API.post("user", {
+        name,
+        email,
+        password,
+        password_confirmation,
+        gender,
+        phone,
+        country,
+        cpf,
+        newsletter,
+      });
+
+      if (res.status === 201) {
+        alert("User successfully registered!");
+        history.push("/");
+      }
     } catch (error) {
       if (error.response === undefined) {
         throw error;
@@ -60,9 +78,7 @@ function RegisterForm() {
           });
         }
 
-        setState({ errors: errorsBag });
-      } else if (error.response.status === 401) {
-        alert(error.response.data.message);
+        setErrors(errorsBag);
       }
     }
   };
@@ -78,11 +94,17 @@ function RegisterForm() {
           id="name"
           type="text"
           name="name"
-          className="register-form__input"
+          className={classnames({
+            "register-form__input": true,
+            "has-text-danger": errors.name,
+          })}
           placeholder="Nome completo"
           value={name}
           onChange={handleChange}
         />
+        {errors.name && (
+          <p className="register-form__help has-text-danger">{errors.name}</p>
+        )}
       </div>
 
       {/* Email */}
@@ -94,11 +116,17 @@ function RegisterForm() {
           id="email"
           type="email"
           name="email"
-          className="register-form__input"
+          className={classnames({
+            "register-form__input": true,
+            "has-text-danger": errors.email,
+          })}
           placeholder="Seu endereço de e-mail"
           value={email}
           onChange={handleChange}
         />
+        {errors.email && (
+          <p className="register-form__help has-text-danger">{errors.email}</p>
+        )}
       </div>
 
       {/* Password */}
@@ -110,11 +138,19 @@ function RegisterForm() {
           id="password"
           type="password"
           name="password"
-          className="register-form__input"
+          className={classnames({
+            "register-form__input": true,
+            "has-text-danger": errors.password,
+          })}
           placeholder="Senha de acesso"
           value={password}
           onChange={handleChange}
         />
+        {errors.password && (
+          <p className="register-form__help has-text-danger">
+            {errors.password}
+          </p>
+        )}
       </div>
 
       {/* Password Confirmation */}
@@ -126,11 +162,19 @@ function RegisterForm() {
           id="password_confirmation"
           type="password"
           name="password_confirmation"
-          className="register-form__input"
+          className={classnames({
+            "register-form__input": true,
+            "has-text-danger": errors.password_confirmation,
+          })}
           placeholder="Insira novamente sua senha"
           value={password_confirmation}
           onChange={handleChange}
         />
+        {errors.password_confirmation && (
+          <p className="register-form__help has-text-danger">
+            {errors.password_confirmation}
+          </p>
+        )}
       </div>
 
       {/* Gender */}
@@ -141,7 +185,10 @@ function RegisterForm() {
         <select
           id="gender"
           name="gender"
-          className="register-form__select"
+          className={classnames({
+            "register-form__select": true,
+            "has-text-danger": errors.gender,
+          })}
           value={gender}
           onChange={handleChange}
         >
@@ -149,6 +196,9 @@ function RegisterForm() {
           <option value="m">Masculino</option>
           <option value="f">Feminino</option>
         </select>
+        {errors.gender && (
+          <p className="register-form__help has-text-danger">{errors.gender}</p>
+        )}
       </div>
 
       {/* Phone */}
@@ -160,11 +210,17 @@ function RegisterForm() {
           id="phone"
           type="text"
           name="phone"
-          className="register-form__input"
+          className={classnames({
+            "register-form__input": true,
+            "has-text-danger": errors.phone,
+          })}
           placeholder="Insira seu telefone com DDD"
           value={phone}
           onChange={handleChange}
         />
+        {errors.phone && (
+          <p className="register-form__help has-text-danger">{errors.phone}</p>
+        )}
       </div>
 
       {/* Country */}
@@ -172,17 +228,23 @@ function RegisterForm() {
         <label htmlFor="country" className="register-form__label">
           País
         </label>
-        <select
+        <input
           id="country"
+          type="text"
           name="country"
-          className="register-form__select"
+          className={classnames({
+            "register-form__input": true,
+            "has-text-danger": errors.country,
+          })}
+          placeholder="Informe seu país"
           value={country}
           onChange={handleChange}
-        >
-          <option value="">Selecione</option>
-          <option value="m">Masculino</option>
-          <option value="f">Feminino</option>
-        </select>
+        />
+        {errors.country && (
+          <p className="register-form__help has-text-danger">
+            {errors.country}
+          </p>
+        )}
       </div>
 
       {/* CPF */}
@@ -194,11 +256,17 @@ function RegisterForm() {
           id="cpf"
           type="text"
           name="cpf"
-          className="register-form__input"
+          className={classnames({
+            "register-form__input": true,
+            "has-text-danger": errors.cpf,
+          })}
           placeholder="Insira seu número de CPF"
           value={cpf}
           onChange={handleChange}
         />
+        {errors.cpf && (
+          <p className="register-form__help has-text-danger">{errors.cpf}</p>
+        )}
       </div>
 
       {/* Newsletter */}

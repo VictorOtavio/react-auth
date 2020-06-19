@@ -1,4 +1,4 @@
-import React, { useState, setState } from "react";
+import React, { useState } from "react";
 import classnames from "classnames";
 import API from "../../services/API";
 import "./LoginForm.scss";
@@ -39,7 +39,7 @@ function LoginForm() {
           });
         }
 
-        setState({ errors: errorsBag });
+        setErrors(errorsBag);
       } else if (error.response.status === 401) {
         alert(error.response.data.message);
       }
