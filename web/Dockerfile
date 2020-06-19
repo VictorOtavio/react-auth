@@ -5,7 +5,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 RUN npm install --production --silent
 RUN npm install -g react-scripts --silent
 COPY . .
-RUN cp .env.example .env && npm run build
+RUN npm run build
 
 FROM nginx:1.19-alpine AS production-stage
 COPY --from=build-stage /app/build /usr/share/nginx/html
